@@ -1,0 +1,26 @@
+{
+  "name": "employee-transaction",
+  "version": "1.0.0",
+  "description": "In this project there are the employees who can registered themselves in the web applications and can make their transaction.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickgautam/Employee-transaction.git"
+  },
+  "author": "Nishant Gautam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nickgautam/Employee-transaction/issues"
+  },
+  "homepage": "https://github.com/nickgautam/Employee-transaction#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "moment": "^2.29.4",
+    "mongoose": "^6.8.1",
+    "nodemon": "^2.0.20"
+  }
+}
