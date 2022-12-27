@@ -1,12 +1,12 @@
 const express= require("express")
-const {createEmployee, getEmployee}= require("../controllers/employeeController.js")
+const {createEmployee, getEmployee, updateEmployee, deleteEmployee}= require("../controllers/employeeController.js")
 const router= express.Router()
 
 
 router.post("/employee", createEmployee)
 router.get("/employee", getEmployee)
-// router.put("/employee", updateEmployee)
-// router.delete("/employee", deleteEmployee)
+router.put("/employee", updateEmployee)
+router.delete("/employee", deleteEmployee)
 
 
 
@@ -14,6 +14,13 @@ router.get("/employee", getEmployee)
 // router.get("/transaction", getTransaction)
 // router.put("/transaction", updateTransaction)
 // router.delete("/transaction", deleteTransaction)
+
+router.all('/**', function (req, res) {
+    res.status(404).send({
+        status: false,
+        message: "The api you requested is not available. Make sure your endpoint is correct or not."
+    })
+})
 
 
 
