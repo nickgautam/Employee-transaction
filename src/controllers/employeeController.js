@@ -1,18 +1,28 @@
-const mongoose= require("mongoose")
-const employeeModel= require("../models/employeeModel.js")
+const mongoose = require("mongoose")
+const employeeModel = require("../models/employeeModel.js")
 const moment = require("moment")
 
 const { isValidString, isValidNumber, isValidName, isValidMobileNo, isValidEmailId, isValidDate, isValidEmployeeId } = require("../validation/validation.js")
 
 
-exports.createEmployee= async (req,res)=>{
-    try{
-        const data= req.body
-        let {firstName, lastName, employeeID, gender, DOB, email, mobile, address, ...rest}=data
-        
+exports.createEmployee = async (req, res) => {
+    try {
+        const data = req.body
+
+        data.firstName = data.firstName.toLowerCase()
+
+        data.lastName = data.lastName.toLowerCase()
+
+        let { firstName, lastName, employeeID, gender, DOB, email, mobile, address, ...rest } = data
+
         if (Object.keys(data).length == 0) return res.status(400).send({
             status: false,
             msg: "Please mention some data"
+        })
+
+        if (Object.keys(rest).length > 0) return res.status(400).send({
+            status: false,
+            msg: "Mention these fields only:- { firstName, lastName, employeeID, gender, DOB, email, mobile, address }"
         })
 
         if (!firstName) return res.status(400).send({
@@ -24,22 +34,22 @@ exports.createEmployee= async (req,res)=>{
             status: false,
             msg: "Please mention lastName"
         })
-        
+
         if (!employeeID) return res.status(400).send({
             status: false,
             msg: "Please mention employeeID"
         })
-        
-        if(!gender)return res.status(400).send({
-            status:false, 
-            msg:"Please mention gender"
+
+        if (!gender) return res.status(400).send({
+            status: false,
+            msg: "Please mention gender"
         })
-        
+
         if (!DOB) return res.status(400).send({
             status: false,
             msg: "Please mention DOB"
         })
-        
+
         if (!email) return res.status(400).send({
             status: false,
             msg: "Please mention email"
@@ -85,7 +95,7 @@ exports.createEmployee= async (req,res)=>{
             status: false,
             msg: "email must be string. Example:--> 'nk123@gmail.com' "
         })
-        
+
         if (!isValidString(address)) return res.status(400).send({
             status: false,
             msg: "address must be string. Example:--> 'Rohini Sector 63' "
@@ -110,15 +120,15 @@ exports.createEmployee= async (req,res)=>{
             status: false,
             msg: "DOB is invalid. It must be like this:--> '1999-03-01' "
         })
-        
+
         DOB = new Date().toISOString()
         DOB = DOB
-        
+
         if (!isValidEmailId(email)) return res.status(400).send({
             status: false,
             msg: "email ID is invalid. It must be like this:--> 'nk123@gmail.com' "
         })
-        
+
         if (!isValidMobileNo(mobile)) return res.status(400).send({
             status: false,
             msg: "mobile number is invalid. It must be Indian No:--> '9058503601' "
@@ -154,5 +164,27 @@ exports.createEmployee= async (req,res)=>{
             data: saveData
         })
 
-    }catch(err){return res.status(500).send({status:false, msg:err.message})}
+    } catch (err) { return res.status(500).send({ status: false, msg: err.message }) }
+}
+
+
+exports.getEmployee = async (req, res) => {
+    try {
+        var saveData = await employeeModel.find({ isDeleted: false })
+
+        console.log(saveData[0].firstName.charAt(0).toUpperCase() + saveData[0].firstName.slice(1))
+
+        console.log(saveData[0].lastName[0].toUpperCase() + saveData[0].lastName.slice(1))
+
+        if (saveData.length == 0) return res.status(404).send({ status: false, msg: "No data found" })
+
+        for (let i = 0; i < saveData.length; i++) {
+
+            saveData[i].firstName = saveData[i].firstName[0].toUpperCase() + saveData[i].firstName.slice(1)
+
+            saveData[i].lastName = saveData[i].lastName[0].toUpperCase() + saveData[i].lastName.slice(1)
+
+        }
+        return res.status(200).send({ status: true, msg: "All Employee's List", data: saveData })
+    } catch (err) { return res.status(500).send({ status: false, msg: err }) }
 }

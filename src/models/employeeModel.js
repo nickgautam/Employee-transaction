@@ -2,9 +2,9 @@ const mongoose = require("mongoose")
 
 const employeeSchema = new mongoose.Schema({
 
-    firstName: { type: String, required: true, trim: true, lowercase: true },
+    firstName: { type: String, required: true, trim: true, },
 
-    lastName: { type: String, required: true, trim: true, lowercase: true },
+    lastName: { type: String, required: true, trim: true, },
 
     employeeID: { type: String, required: true, unique: true, trim: true },
 
