@@ -38,12 +38,8 @@ function isValidDate(value) {
     return /^\d{4}-\d{2}-\d{2}$/.test(value)
 }
 
-//******************* validation for employeeId ******************/
-function isValidEmployeeId(value) {
-    return /^[A-Z]{4}$/.test(value)
-}
 
-module.exports = { isValidObjectId, isValidString, isValidNumber, isValidName, isValidMobileNo, isValidEmailId, isValidDate, isValidEmployeeId }
+module.exports = { isValidObjectId, isValidString, isValidNumber, isValidName, isValidMobileNo, isValidEmailId, isValidDate }
 
 
 
