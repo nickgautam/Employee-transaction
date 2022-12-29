@@ -1,10 +1,12 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const route = require("./route/route.js")
+const cors= require("cors")
 
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 
 mongoose.connect("mongodb+srv://NishantGautam:Ng123@cluster0.45vj3.mongodb.net/Employee-Transaction-DB",
     {

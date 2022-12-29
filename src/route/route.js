@@ -1,9 +1,10 @@
 const express= require("express")
-const {createEmployee, getEmployee, updateEmployee, deleteEmployee}= require("../controllers/employeeController.js")
+const {createEmployee, getEmployee, getEmployeeWithID, updateEmployee, deleteEmployee}= require("../controllers/employeeController.js")
 const router= express.Router()
 
 
 router.post("/employee", createEmployee)
+router.get("/employee/:id", getEmployeeWithID)
 router.get("/employee", getEmployee)
 router.put("/employee", updateEmployee)
 router.delete("/employee", deleteEmployee)
